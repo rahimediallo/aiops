@@ -206,9 +206,64 @@ setx OPENAI_API_KEY "your_openai_api_key"
 
 ## Run Application
 
+### Option 1: Local Maven
+
 ```bash
 mvn clean spring-boot:run
 ```
+
+### Option 2: Docker
+
+Build and run with Docker:
+
+```bash
+# Build Docker image
+docker build -t ai-ops-monitor:latest .
+
+# Run container
+docker run -p 8080:8080 \
+  -e OPENAI_API_KEY=your_openai_api_key \
+  ai-ops-monitor:latest
+```
+
+### Option 3: Docker Compose (recommended for development)
+
+This includes PostgreSQL + the app:
+
+```bash
+# Set your OpenAI API key
+export OPENAI_API_KEY=your_openai_api_key
+
+# Start containers
+docker-compose up -d
+
+# View logs
+docker-compose logs -f ai-ops-monitor
+
+# Stop containers
+docker-compose down
+```
+
+Access the app at: `http://localhost:8080`
+
+---
+
+# Running Tests
+
+## Unit Tests
+
+```bash
+# Run all tests
+mvn test
+
+# Run specific test class
+mvn -Dtest=com.rahim.aiops.application.service.IncidentServiceTest test
+
+# Run with coverage
+mvn test jacoco:report
+```
+
+Test files location: `src/test/java/com/rahim/aiops/`
 
 ---
 
